@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#100d16" />
+    <meta name="description" content="Gardez une trace des films que vous avez vus, notez-les et créez votre collection personnelle." />
+    <title>Pellicule — votre cinéma, à vous</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&amp;display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="pellicule-mark.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div id="authView" class="auth-shell">
+      <div class="auth-glow auth-glow-one"></div>
+      <div class="auth-glow auth-glow-two"></div>
+      <header class="auth-topbar">
+        <a class="brand" href="#" aria-label="Pellicule, accueil">
+          <img class="brand-mark" src="pellicule-mark.svg" alt="" />
+          <span>pellicule<span class="brand-period">.</span></span>
+        </a>
+        <span class="topbar-note"><span class="live-dot"></span> Votre cinéma, à vous</span>
+      </header>
+
+      <main class="auth-main">
+        <section class="auth-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> LE CINÉMA, EN VERSION PERSONNELLE</div>
+          <h1>Chaque film<br />laisse une <em>trace.</em></h1>
+          <p class="auth-intro">Conservez vos films, séries et animations préférés, notez chaque découverte et retrouvez facilement votre prochaine séance.</p>
+          <div class="auth-preview" aria-label="Aperçu de votre collection">
+            <div class="preview-poster poster-moon">
+              <span class="poster-kicker">UNE HISTOIRE DE NUIT</span>
+              <span class="preview-title">La nuit<br />nous va</span>
+              <span class="poster-bottom">01 — 24</span>
+            </div>
+            <div class="preview-poster poster-orbit">
+              <span class="poster-kicker">AU-DELÀ DU TEMPS</span>
+              <span class="preview-title">L’autre<br />horizon</span>
+              <span class="poster-bottom">CINÉMA · 2025</span>
+            </div>
+            <div class="preview-poster poster-bloom">
+              <span class="poster-kicker">LES JOURS BLEUS</span>
+              <span class="preview-title">Un été<br />en fleurs</span>
+              <span class="poster-bottom">UN FILM À GARDER</span>
+            </div>
+            <div class="preview-caption"><span class="caption-stars">★★★★★</span><span>Vos souvenirs de cinéma, réunis au même endroit.</span></div>
+          </div>
+        </section>
+
+        <section class="auth-card" aria-labelledby="authTitle">
+          <div class="auth-card-top">
+            <span class="card-kicker">BIENVENUE CHEZ VOUS</span>
+            <div class="auth-icon" aria-hidden="true">✳</div>
+          </div>
+          <h2 id="authTitle">Votre espace<br />commence ici.</h2>
+          <p class="auth-card-subtitle">Connectez-vous pour retrouver votre collection.</p>
+          <div class="auth-tabs" role="tablist" aria-label="Choisir une option">
+            <button class="auth-tab active" type="button" role="tab" aria-selected="true" data-auth-mode="login">Connexion</button>
+            <button class="auth-tab" type="button" role="tab" aria-selected="false" data-auth-mode="signup">Créer un compte</button>
+          </div>
+          <form id="authForm" novalidate>
+            <label id="nameField" class="form-field is-hidden">Votre prénom
+              <input id="nameInput" type="text" autocomplete="given-name" placeholder="Camille" />
+            </label>
+            <label class="form-field">Adresse e-mail
+              <span class="input-wrap"><span class="input-icon" aria-hidden="true">✉</span><input id="emailInput" type="email" autocomplete="email" placeholder="vous@exemple.fr" required /></span>
+            </label>
+            <label class="form-field">Mot de passe
+              <span class="input-wrap"><span class="input-icon lock-icon" aria-hidden="true">▣</span><input id="passwordInput" type="password" autocomplete="current-password" placeholder="8 caractères minimum" required minlength="8" /><button id="togglePassword" class="password-toggle" type="button" aria-label="Afficher le mot de passe">◉</button></span>
+            </label>
+            <p id="authMessage" class="form-message" aria-live="polite"></p>
+            <button class="primary-button auth-submit" type="submit"><span id="authSubmitLabel">Entrer dans mon espace</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+          </form>
+          <div class="auth-divider"><span></span><b>ou</b><span></span></div>
+          <button id="demoButton" class="demo-button" type="button"><span class="demo-sparkle">✦</span> Découvrir avec un compte démo</button>
+          <p class="local-note"><span class="shield-icon" aria-hidden="true">◈</span> La démo est temporaire. Créez un compte pour retrouver votre collection sur tous vos appareils.</p>
+        </section>
+      </main>
+      <footer class="auth-footer"><span>© 2025 PELLICULE</span><span>FAIT POUR LES AMOUREUX DU 7<sup>e</sup> ART</span><span>PRENEZ PLACE <span class="footer-star">✳</span></span></footer>
+    </div>
+
+    <div id="appView" class="app-shell is-hidden">
+      <aside id="sidebar" class="sidebar">
+        <a class="brand sidebar-brand" href="#home" aria-label="Pellicule, accueil">
+          <img class="brand-mark" src="pellicule-mark.svg" alt="" />
+          <span>pellicule<span class="brand-period">.</span></span>
+        </a>
+        <div class="sidebar-section-label">MENU</div>
+        <nav class="side-nav" aria-label="Navigation principale">
+          <button class="nav-item active" type="button" data-filter="all" aria-label="Accueil" title="Accueil"><span class="nav-icon">⌂</span><span class="nav-label">Accueil</span><span class="nav-indicator"></span></button>
+          <button class="nav-item" type="button" data-view="catalog" aria-label="Catalogue en ligne" title="Catalogue en ligne"><span class="nav-icon">⌕</span><span class="nav-label">Catalogue en ligne</span></button>
+          <button class="nav-item" type="button" data-filter="watched" aria-label="Déjà vus" title="Déjà vus"><span class="nav-icon">▣</span><span class="nav-label">Déjà vus</span><span class="nav-count" id="watchedNavCount">0</span></button>
+          <button class="nav-item" type="button" data-filter="watchlist" aria-label="À voir" title="À voir"><span class="nav-icon">◷</span><span class="nav-label">À voir</span><span class="nav-count" id="watchlistNavCount">0</span></button>
+          <button class="nav-item" type="button" data-view="friends" aria-label="Mes amis" title="Mes amis"><span class="nav-icon">♧</span><span class="nav-label">Mes amis</span></button>
+          <button class="nav-item" type="button" data-filter="favorites" aria-label="Mes favoris" title="Mes favoris"><span class="nav-icon">♡</span><span class="nav-label">Mes favoris</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-quote"><span class="quote-mark">“</span><p id="sidebarQuoteText">Les images passent, les émotions restent.</p><span id="sidebarQuoteAuthor" class="quote-author">— L’ESPRIT PELLICULE</span></div>
+          <button id="profileButton" class="profile-chip" type="button" aria-label="Ouvrir mon espace">
+            <span id="avatarInitial" class="avatar">C</span>
+            <span class="profile-text"><strong id="profileName">Camille</strong><span>Mon espace</span></span>
+            <span class="profile-menu-icon">···</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="dashboard-main" id="home">
+        <header class="dashboard-topbar">
+          <div class="breadcrumb"><span>MON ESPACE</span><span class="breadcrumb-slash">/</span><strong id="breadcrumbCurrent">ACCUEIL</strong></div>
+          <div class="topbar-actions">
+            <span class="local-badge"><span class="live-dot"></span> Collection privée</span>
+            <button id="mobileProfileButton" class="mobile-profile-button" type="button" aria-label="Ouvrir mon espace"><span id="mobileAvatarInitial" class="avatar">C</span></button>
+            <button id="topAddButton" class="top-add-button" type="button"><span>＋</span> Ajouter un titre</button>
+          </div>
+        </header>
+
+        <div id="homeView">
+        <section id="welcomeRow" class="welcome-row">
+          <div>
+            <div class="date-label"><span class="date-spark">✳</span> <span id="currentDate">VOTRE CARNET DE CINÉMA</span></div>
+            <h1>Bonjour <span id="welcomeName">Camille</span><span class="welcome-comma">,</span></h1>
+            <p class="welcome-subtitle">On se souvient mieux des histoires qu’on a aimées.</p>
+          </div>
+          <div class="welcome-decoration" aria-hidden="true"><span class="deco-orbit orbit-a"></span><span class="deco-orbit orbit-b"></span><span class="deco-star">✳</span><span class="deco-dot"></span></div>
+        </section>
+
+        <section id="featureBanner" class="feature-banner">
+          <div class="banner-art" aria-hidden="true"><span class="banner-circle"></span><span class="banner-small-star">✳</span><span class="banner-diamond">✦</span><span class="banner-line"></span></div>
+          <div class="banner-content">
+            <span class="banner-kicker"><span class="banner-kicker-dot"></span> VOTRE HISTOIRE DU 7<sup>e</sup> ART</span>
+            <h2>Un film, une série,<br /><em>une histoire à retenir.</em></h2>
+            <p>Composez votre cinémathèque, notez vos découvertes et gardez le fil de vos séries.</p>
+            <button id="bannerAddButton" class="banner-button" type="button">Ajouter un titre <span>↗</span></button>
+          </div>
+          <div class="banner-index"><span>01</span><span class="banner-index-line"></span><span>03</span></div>
+        </section>
+
+        <section id="statsGrid" class="stats-grid" aria-label="Résumé de votre collection">
+          <article class="stat-card"><div class="stat-head"><span class="stat-icon icon-purple">▣</span><span class="stat-label">DÉJÀ VUS</span><span class="stat-corner">↗</span></div><div class="stat-value" id="watchedCount">0</div><div class="stat-foot"><span class="stat-dot purple-dot"></span> Dans votre collection</div></article>
+          <article class="stat-card"><div class="stat-head"><span class="stat-icon icon-pink">★</span><span class="stat-label">NOTE MOYENNE</span><span class="stat-corner">↗</span></div><div class="stat-value"><span id="averageRating">—</span><span class="value-out-of" id="ratingOutOf"></span></div><div class="stat-foot"><span class="stat-dot pink-dot"></span> Votre regard en quelques étoiles</div></article>
+          <article class="stat-card"><div class="stat-head"><span class="stat-icon icon-blue">◷</span><span class="stat-label">À DÉCOUVRIR</span><span class="stat-corner">↗</span></div><div class="stat-value" id="watchlistCount">0</div><div class="stat-foot"><span class="stat-dot blue-dot"></span> En attente d’une soirée</div></article>
+          <article class="stat-card stat-card-accent"><div class="stat-head"><span class="stat-icon icon-gold">✦</span><span class="stat-label">COUP DE CŒUR</span><span class="stat-corner">♡</span></div><div class="stat-feature" id="favoriteTitle">À vous de choisir</div><div class="stat-foot"><span class="stat-dot gold-dot"></span> Votre titre préféré</div></article>
+        </section>
+
+        <section class="collection-section">
+          <div class="collection-heading">
+            <div><div class="section-kicker"><span></span> VOTRE SÉLECTION</div><h2 id="collectionTitle">Votre collection <span id="filmCountLabel">(0)</span></h2></div>
+            <div class="collection-tools">
+              <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Rechercher dans ma collection" aria-label="Rechercher dans ma collection" /><kbd>⌘ K</kbd></label>
+              <button id="sortButton" class="sort-button" type="button"><span>☷</span> Récents <span class="sort-caret">⌄</span></button>
+            </div>
+          </div>
+          <div class="filter-row" role="group" aria-label="Filtrer ma collection">
+            <button class="filter-chip active" type="button" data-filter="all">Tout <span id="allFilterCount">0</span></button>
+            <button class="filter-chip" type="button" data-filter="watched">Vus</button>
+            <button class="filter-chip" type="button" data-filter="watchlist">À voir</button>
+            <button class="filter-chip" type="button" data-filter="favorites">Favoris</button>
+          </div>
+          <div id="filmGrid" class="film-grid"></div>
+          <div id="emptyState" class="empty-state is-hidden">
+            <div class="empty-reel"><span>✳</span><i></i></div>
+            <h3>La prochaine séance commence ici.</h3>
+            <p>Ajoutez une œuvre déjà vue ou celle que vous avez hâte de découvrir.</p>
+            <button id="emptyAddButton" class="primary-button" type="button">Ajouter un titre <span class="button-arrow">↗</span></button>
+          </div>
+          <div id="noResults" class="no-results is-hidden">Aucun film ne correspond à cette recherche.</div>
+        </section>
+        </div>
+
+        <section id="catalogView" class="catalog-view is-hidden" aria-labelledby="catalogTitle">
+          <div class="catalog-heading-row">
+            <div>
+              <div class="section-kicker"><span></span> LE GRAND ÉCRAN, ET TOUT LE RESTE</div>
+              <h1 id="catalogTitle">Le catalogue <em>sans frontières.</em></h1>
+              <p class="catalog-intro">Cherchez un film, une série, un animé ou un dessin animé. Retrouvez aussi où le regarder.</p>
+            </div>
+            <button id="catalogSettingsButton" class="catalog-settings-button" type="button"><span>⚙</span> Connecter le catalogue</button>
+          </div>
+          <form id="catalogSearchForm" class="catalog-search-form">
+            <span class="catalog-search-icon" aria-hidden="true">⌕</span>
+            <input id="catalogSearchInput" type="search" placeholder="Ex. Le voyage de Chihiro, Stranger Things…" aria-label="Chercher un film ou une série" />
+            <button type="submit">Rechercher <span>↗</span></button>
+          </form>
+          <div class="catalog-controls">
+            <div class="catalog-type-filters" role="group" aria-label="Type de programme">
+              <button type="button" class="catalog-type-chip active" data-catalog-type="all">Tout</button>
+              <button type="button" class="catalog-type-chip" data-catalog-type="movie">Films</button>
+              <button type="button" class="catalog-type-chip" data-catalog-type="tv">Séries</button>
+              <button type="button" class="catalog-type-chip" data-catalog-type="animation">Animation</button>
+              <button type="button" class="catalog-type-chip" data-catalog-type="anime">Animés</button>
+            </div>
+            <label class="country-select-label">PLATEFORMES EN
+              <select id="catalogCountry" aria-label="Pays pour les plateformes"><option value="FR">France</option><option value="BE">Belgique</option><option value="CH">Suisse</option><option value="CA">Canada</option></select>
+            </label>
+          </div>
+          <div class="catalog-results-heading"><h2 id="catalogResultsTitle">À découvrir</h2><span id="catalogResultsCount"></span></div>
+          <div id="catalogNotice" class="catalog-notice"><span class="notice-icon">✦</span><div><strong>Votre prochaine découverte vous attend.</strong><p>Entrez un titre dans la barre de recherche pour parcourir des milliers de films, séries et animations.</p></div></div>
+          <div id="catalogLoading" class="catalog-loading is-hidden"><span class="loading-orbit"></span> Recherche dans le catalogue…</div>
+          <div id="catalogGrid" class="catalog-grid"></div>
+          <div id="catalogEmpty" class="catalog-empty is-hidden"></div>
+          <div class="catalog-credit"><span>IMAGES ET INFORMATIONS : <a class="tmdb-brand" href="https://www.themoviedb.org/" target="_blank" rel="noreferrer"><img src="https://www.themoviedb.org/assets/2/v4/logos/primary-green.svg" alt="TMDB" /> TMDB</a></span><span>DISPONIBILITÉS : <a href="https://www.justwatch.com/fr" target="_blank" rel="noreferrer">JustWatch</a>, via TMDB</span><span>Les offres peuvent changer selon le pays.</span><span class="tmdb-legal">This product uses the TMDB API but is not endorsed or certified by TMDB.</span></div>
+        </section>
+        <section id="profileView" class="profile-view is-hidden" aria-labelledby="profilePageTitle">
+          <div class="profile-page-heading">
+            <div>
+              <div class="section-kicker"><span></span> VOTRE ESPACE PERSONNEL</div>
+              <h1 id="profilePageTitle">Votre espace,<br /><em>à votre image.</em></h1>
+              <p>Gérez vos informations de compte et votre photo de profil.</p>
+            </div>
+            <div class="profile-page-decoration" aria-hidden="true">✳</div>
+          </div>
+          <div class="profile-settings-grid">
+            <section class="profile-settings-card profile-photo-card">
+              <div class="profile-card-heading"><span class="profile-card-icon">◉</span><div><h2>Photo de profil</h2><p>Choisissez l’image qui vous représente.</p></div></div>
+              <form id="profilePhotoForm">
+                <div class="profile-photo-editor">
+                  <div id="profileLargeAvatar" class="profile-large-avatar"><span>C</span></div>
+                  <div class="profile-photo-controls">
+                    <label class="profile-image-button" for="profilePhotoInput">Choisir une photo<input id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" /></label>
+                    <button id="removeProfilePhotoButton" class="profile-remove-button" type="button">Retirer la photo</button>
+                    <span class="profile-image-help">JPEG, PNG ou WebP · 15 Mo maximum.</span>
+                  </div>
+                </div>
+                <p id="profilePhotoMessage" class="form-message" aria-live="polite"></p>
+                <button class="primary-button" type="submit">Enregistrer la photo <span class="button-arrow">↗</span></button>
+              </form>
+            </section>
+            <section class="profile-settings-card profile-account-card">
+              <div class="profile-card-heading"><span class="profile-card-icon">✉</span><div><h2>Informations du compte</h2><p>Les informations de ton espace.</p></div></div>
+              <label class="form-field">Prénom<input id="profileNameDisplay" type="text" readonly /></label>
+              <label class="form-field">Adresse e-mail<input id="profileEmailDisplay" type="email" readonly /></label>
+              <p class="profile-readonly-note">Ces informations sont liées à ce profil sur cet appareil.</p>
+              <button id="restartTourButton" class="profile-guide-button" type="button">Revoir le guide du site <span>↗</span></button>
+            </section>
+            <section class="profile-settings-card profile-password-card">
+              <div class="profile-card-heading"><span class="profile-card-icon">◇</span><div><h2>Changer le mot de passe</h2><p>Choisissez un nouveau mot de passe pour votre espace.</p></div></div>
+              <form id="passwordChangeForm" novalidate>
+                <label class="form-field">Mot de passe actuel<input id="currentPasswordInput" type="password" autocomplete="current-password" required /></label>
+                <div class="password-fields-row">
+                  <label class="form-field">Nouveau mot de passe<input id="newPasswordInput" type="password" autocomplete="new-password" minlength="8" required placeholder="8 caractères minimum" /></label>
+                  <label class="form-field">Confirmer le nouveau mot de passe<input id="confirmPasswordInput" type="password" autocomplete="new-password" minlength="8" required /></label>
+                </div>
+                <p id="passwordChangeMessage" class="form-message" aria-live="polite"></p>
+                <button class="primary-button" type="submit">Mettre à jour le mot de passe <span class="button-arrow">↗</span></button>
+              </form>
+            </section>
+            <section class="profile-logout-card">
+              <div><strong>Tu as terminé ta séance ?</strong><span>Déconnecte-toi de cet espace sur cet appareil.</span></div>
+              <button id="profileLogoutButton" type="button">Se déconnecter <span>↗</span></button>
+            </section>
+          </div>
+        </section>
+        <section id="friendsView" class="friends-view is-hidden" aria-labelledby="friendsPageTitle">
+          <div class="friends-page-heading">
+            <div>
+              <div class="section-kicker"><span></span> LE CINÉMA SE PARTAGE</div>
+              <h1 id="friendsPageTitle">Vos amis,<br /><em>leurs découvertes.</em></h1>
+              <p>Retrouvez les films, séries et animations que vos amis ont déjà vus.</p>
+            </div>
+            <div class="friends-heading-decoration" aria-hidden="true">♧</div>
+          </div>
+          <div id="friendsNotice" class="friends-notice"><span>✦</span><p>Pour le moment, les comptes doivent avoir été créés sur ce même navigateur. Les amis acceptés voient les titres marqués « Déjà vu ». La recherche commune compare uniquement les titres présents dans vos deux listes « À voir ».</p></div>
+          <section id="friendCollectionView" class="friend-collection-view is-hidden" aria-live="polite">
+            <button id="backToFriendsButton" class="friends-back-button" type="button">← Retour à mes amis</button>
+            <div class="friend-collection-heading"><div id="friendCollectionAvatar" class="friend-avatar friend-avatar-large"></div><div><span class="section-kicker"><span></span> COLLECTION PARTAGÉE</span><h2 id="friendCollectionTitle">Films déjà vus</h2><p id="friendCollectionSubtitle"></p></div></div>
+            <div id="friendFilmGrid" class="friend-film-grid"></div>
+            <div id="friendCollectionEmpty" class="friends-empty is-hidden">Cet ami n’a pas encore ajouté de titre vu.</div>
+          </section>
+          <div id="friendsDirectoryView">
+            <section class="watch-together-card">
+              <div class="friends-section-heading"><div><span class="section-kicker"><span></span> UNE SÉANCE À PARTAGER</span><h2>Trouver un film à regarder ensemble</h2><p>Compare ta liste « À voir » avec celle de tes amis.</p></div><span class="watch-together-icon" aria-hidden="true">✦</span></div>
+              <form id="watchTogetherForm" class="watch-together-form">
+                <label class="friends-email-field"><span>Avec qui ?</span><select id="watchTogetherFriendSelect"><option value="all">Tous mes amis</option></select></label>
+                <button id="findTogetherButton" class="primary-button" type="submit">Trouver un titre en commun <span class="button-arrow">↗</span></button>
+              </form>
+              <p id="watchTogetherMessage" class="watch-together-message" aria-live="polite">Les résultats montrent seulement les titres présents dans les deux listes « À voir ».</p>
+              <div id="watchTogetherResults" class="watch-together-results is-hidden"></div>
+            </section>
+            <section class="friends-add-card">
+              <div class="friends-section-heading"><div><span class="section-kicker"><span></span> FAIRE UNE RENCONTRE</span><h2>Ajouter un ami</h2><p>Entrez l’adresse e-mail de la personne à retrouver.</p></div><span class="friends-section-icon">＋</span></div>
+              <form id="friendAddForm" class="friends-add-form" novalidate>
+                <label class="friends-email-field"><span>Adresse e-mail</span><input id="friendEmailInput" type="email" autocomplete="email" placeholder="ami@exemple.fr" required /></label>
+                <button class="primary-button" type="submit">Envoyer une demande <span class="button-arrow">↗</span></button>
+              </form>
+              <p id="friendAddMessage" class="form-message" aria-live="polite"></p>
+            </section>
+            <div class="friends-sections-grid">
+              <section class="friends-list-card"><div class="friends-section-heading compact"><div><span class="section-kicker"><span></span> À CONFIRMER</span><h2>Demandes reçues <span id="incomingFriendCount" class="friends-count">0</span></h2></div></div><div id="incomingFriendList" class="friends-list"></div><p id="incomingFriendEmpty" class="friends-list-empty">Aucune demande pour le moment.</p></section>
+              <section class="friends-list-card"><div class="friends-section-heading compact"><div><span class="section-kicker"><span></span> EN ATTENTE</span><h2>Demandes envoyées <span id="outgoingFriendCount" class="friends-count">0</span></h2></div></div><div id="outgoingFriendList" class="friends-list"></div><p id="outgoingFriendEmpty" class="friends-list-empty">Aucune demande en attente.</p></section>
+            </div>
+            <section class="friends-list-card accepted-friends-card"><div class="friends-section-heading compact"><div><span class="section-kicker"><span></span> VOTRE CERCLE</span><h2>Mes amis <span id="acceptedFriendCount" class="friends-count">0</span></h2></div></div><div id="acceptedFriendList" class="accepted-friend-grid"></div><p id="acceptedFriendEmpty" class="friends-list-empty">Vos amis apparaîtront ici après acceptation d’une demande.</p></section>
+          </div>
+        </section>
+        <footer class="dashboard-footer"><span>PEL·LICULE <span class="footer-star">✳</span> VOTRE CINÉMA, À VOUS</span><span>À VOUS DE RACONTER LA SUITE</span></footer>
+      </main>
+    </div>
+
+    <div id="filmModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <section class="film-modal">
+        <button id="closeModal" class="modal-close" type="button" aria-label="Fermer">×</button>
+        <div class="modal-kicker"><span></span> AGRANDISSEZ VOTRE COLLECTION</div>
+        <h2 id="modalTitle">Un nouveau titre<br /><em>à garder en mémoire.</em></h2>
+        <form id="filmForm" novalidate>
+          <div class="form-row">
+            <label class="form-field form-field-wide">Titre<input id="filmTitleInput" type="text" placeholder="Ex. Le voyage de Chihiro" required maxlength="80" /></label>
+            <label class="form-field">Année<input id="filmYearInput" type="number" placeholder="2024" min="1888" max="2100" /></label>
+          </div>
+          <div class="form-row">
+            <label class="form-field">Type<select id="contentTypeInput"><option value="film">Film</option><option value="serie">Série</option><option value="anime">Animé</option><option value="animation">Dessin animé</option><option value="documentaire">Documentaire</option><option value="autre">Autre</option></select></label>
+            <label class="form-field">Genre<select id="filmGenreInput"><option value="Drame">Drame</option><option value="Comédie">Comédie</option><option value="Science-fiction">Science-fiction</option><option value="Thriller">Thriller</option><option value="Animation">Animation</option><option value="Romance">Romance</option><option value="Documentaire">Documentaire</option><option value="Autre">Autre</option></select></label>
+          </div>
+          <label class="form-field director-field">Réalisateur ou créateur<input id="filmDirectorInput" type="text" placeholder="Ex. Hayao Miyazaki" maxlength="60" /></label>
+          <div class="form-field cover-upload-field">
+            <span>Image de l’œuvre <span class="optional-label">FACULTATIF</span></span>
+            <div class="image-upload-area">
+              <label class="image-upload-button" for="coverImageInput"><span class="upload-icon">＋</span><span>Choisir une image</span><input id="coverImageInput" type="file" accept="image/jpeg,image/png,image/webp" /></label>
+              <span class="image-upload-help">JPEG, PNG ou WebP · réduite puis conservée sur cet appareil.</span>
+              <div id="coverPreviewWrap" class="cover-preview-wrap is-hidden"><img id="coverPreview" alt="Aperçu de l’image choisie" /><span>Image prête à être ajoutée</span><button id="removeCoverButton" type="button" aria-label="Retirer l’image">×</button></div>
+            </div>
+          </div>
+          <div class="form-row form-row-last">
+            <fieldset class="rating-field"><legend>Votre note</legend><div id="ratingPicker" class="rating-picker" aria-label="Choisir une note sur cinq"><button type="button" data-rating="1" aria-label="1 étoile">★</button><button type="button" data-rating="2" aria-label="2 étoiles">★</button><button type="button" data-rating="3" aria-label="3 étoiles">★</button><button type="button" data-rating="4" aria-label="4 étoiles">★</button><button type="button" data-rating="5" aria-label="5 étoiles">★</button><span id="ratingHint">Pas encore noté</span></div></fieldset>
+            <label class="form-field">Dans ma collection<select id="filmStatusInput"><option value="watched">Déjà vu</option><option value="watchlist">À voir</option></select></label>
+          </div>
+          <label class="form-field review-field">Une petite note personnelle <span class="optional-label">FACULTATIF</span><textarea id="filmReviewInput" rows="3" placeholder="Une scène, une émotion, une phrase à retenir…" maxlength="240"></textarea></label>
+          <p id="filmMessage" class="form-message" aria-live="polite"></p>
+          <div class="modal-actions"><button id="cancelModal" class="cancel-button" type="button">Annuler</button><button class="primary-button" type="submit">Ajouter à ma collection <span class="button-arrow">↗</span></button></div>
+        </form>
+      </section>
+    </div>
+    <div id="sourceModal" class="modal-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="sourceModalTitle">
+      <section class="source-modal">
+        <button id="closeSourceModal" class="modal-close" type="button" aria-label="Fermer">×</button>
+        <div class="modal-kicker"><span></span> CATALOGUE EN LIGNE</div>
+        <h2 id="sourceModalTitle">Connecter les films<br /><em>et les séries du monde entier.</em></h2>
+        <p class="source-modal-copy">Pour rechercher dans TMDB et afficher les plateformes disponibles, ajoutez votre jeton de lecture TMDB. Il sera conservé dans ce navigateur et servira uniquement à ces recherches.</p>
+        <form id="sourceForm">
+          <label class="form-field">Jeton API en lecture seule
+            <input id="tmdbTokenInput" type="password" autocomplete="off" placeholder="Votre API Read Access Token" required />
+          </label>
+          <p id="sourceMessage" class="form-message" aria-live="polite"></p>
+          <p class="source-help">Créez un compte TMDB, puis copiez le jeton « API Read Access Token » dans les paramètres API.</p>
+          <a class="tmdb-account-link" href="https://www.themoviedb.org/settings/api" target="_blank" rel="noreferrer">Ouvrir les paramètres TMDB ↗</a>
+          <div class="modal-actions"><button id="cancelSourceModal" class="cancel-button" type="button">Annuler</button><button class="primary-button" type="submit">Enregistrer le jeton <span class="button-arrow">↗</span></button></div>
+        </form>
+      </section>
+    </div>
+    <div id="detailModal" class="detail-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <section class="detail-modal">
+        <button id="closeDetailButton" class="detail-close" type="button" aria-label="Fermer les détails">×</button>
+        <div id="detailHero" class="detail-hero">
+          <div class="detail-hero-shade"></div>
+          <div class="detail-hero-layout">
+            <div class="detail-poster-frame"><img id="detailPoster" alt="" /><span id="detailPosterFallback">✳</span></div>
+            <div class="detail-copy">
+              <div class="detail-eyebrow"><span id="detailKind">FILM</span><span class="detail-dot">·</span><span id="detailYear">—</span></div>
+              <h2 id="detailTitle">Titre</h2>
+              <div id="detailMeta" class="detail-meta"></div>
+              <div id="detailTmdbRating" class="detail-tmdb-rating is-hidden"></div>
+              <p id="detailOverview" class="detail-overview"></p>
+              <div class="detail-hero-actions">
+                <button id="detailStatusButton" class="detail-primary-button" type="button">Marquer comme vu <span>✓</span></button>
+                <button id="detailFavoriteButton" class="detail-secondary-button" type="button">♡ Favori</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="detail-content">
+          <section class="detail-rating-panel">
+            <div><span class="detail-section-kicker">VOTRE AVIS</span><h3>Quelle note lui donnes-tu ?</h3></div>
+            <div class="detail-rating-picker" id="detailRatingPicker" role="group" aria-label="Noter ce titre de 1 à 5 étoiles"><button type="button" data-detail-rating="1" aria-label="1 étoile">★</button><button type="button" data-detail-rating="2" aria-label="2 étoiles">★</button><button type="button" data-detail-rating="3" aria-label="3 étoiles">★</button><button type="button" data-detail-rating="4" aria-label="4 étoiles">★</button><button type="button" data-detail-rating="5" aria-label="5 étoiles">★</button><span id="detailRatingLabel">Pas encore noté</span></div>
+          </section>
+          <section id="detailProgressSection" class="detail-progress-section is-hidden">
+            <div class="detail-progress-heading"><div><span class="detail-section-kicker">SUIVI DE VISIONNAGE</span><h3>Où en es-tu ?</h3></div><span class="progress-reel">◷</span></div>
+            <form id="detailProgressForm" class="detail-progress-form" novalidate>
+              <label>Saison<input id="detailSeasonInput" type="number" min="1" max="99" placeholder="1" /></label>
+              <label>Épisode<input id="detailEpisodeInput" type="number" min="1" max="999" placeholder="1" /></label>
+              <button type="submit">Enregistrer l’avancement <span>↗</span></button>
+              <button id="clearProgressButton" class="clear-progress-button" type="button">Effacer</button>
+            </form>
+            <p id="detailProgressMessage" class="detail-progress-message" aria-live="polite"></p>
+          </section>
+          <div class="detail-lower-grid">
+            <section class="detail-personal-note"><span class="detail-section-kicker">VOTRE NOTE PERSONNELLE</span><p id="detailReview">Tu n’as pas encore ajouté de note.</p></section>
+            <section class="detail-watch-state"><span class="detail-section-kicker">DANS VOTRE COLLECTION</span><strong id="detailCollectionStatus">À voir</strong><button id="detailRemoveButton" type="button">Retirer de ma collection ×</button></section>
+          </div>
+          <div class="detail-source-row"><span id="detailDirector"></span><a id="detailSourceLink" class="is-hidden" href="#" target="_blank" rel="noreferrer">Plus d’informations ↗</a></div>
+        </div>
+      </section>
+    </div>
+    <div id="firstVisitTour" class="tour-backdrop is-hidden" role="dialog" aria-modal="true" aria-labelledby="tourTitle" aria-describedby="tourDescription">
+      <section class="tour-card">
+        <div class="tour-card-top"><span class="tour-brand"><img class="tour-brand-mark" src="pellicule-mark.svg" alt="" /> PELLICULE · GUIDE</span><button id="skipTourButton" class="tour-skip-button" type="button">Passer</button></div>
+        <div class="tour-film-icon" id="tourIcon" aria-hidden="true">▰</div>
+        <div class="tour-progress-row"><div id="tourProgressDots" class="tour-progress-dots"></div><span id="tourProgressText">01 / 06</span></div>
+        <h2 id="tourTitle">Bienvenue dans votre cinéma.</h2>
+        <p id="tourDescription">Un petit tour pour découvrir votre espace.</p>
+        <div class="tour-card-footer"><button id="previousTourButton" class="tour-back-button" type="button">← Retour</button><button id="nextTourButton" class="tour-next-button" type="button">Suivant <span>→</span></button></div>
+      </section>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
