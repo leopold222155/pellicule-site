@@ -4,18 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#100d16" />
-    <meta name="description" content="Crée ta cinémathèque personnelle avec Pellicule : garde la trace des films, séries et animations vus ou à voir, note tes découvertes et retrouve tes favoris." />
-    <title>Pellicule — votre cinéma, à vous</title>
+    <meta name="description" content="Organise ta cinémathèque personnelle : films et séries vus ou à voir, notes, favoris et suivi de tes épisodes. Retrouve tes découvertes dans Pellicule." />
+    <title>Pellicule | Application pour suivre films et séries</title>
     <link rel="canonical" href="https://leopold222155.github.io/pellicule-site/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Pellicule",
+        "url": "https://leopold222155.github.io/pellicule-site/",
+        "description": "Organise ta cinémathèque personnelle : films et séries vus ou à voir, notes, favoris et suivi de tes épisodes.",
+        "inLanguage": "fr-FR",
+        "applicationCategory": "EntertainmentApplication"
+      }
+    </script>
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Pellicule" />
-    <meta property="og:title" content="Pellicule — votre cinéma, à vous" />
-    <meta property="og:description" content="Crée ta cinémathèque personnelle : films, séries et animations vus ou à voir, notes et favoris." />
+    <meta property="og:title" content="Pellicule | Application pour suivre films et séries" />
+    <meta property="og:description" content="Organise ta cinémathèque personnelle : films et séries vus ou à voir, notes, favoris et suivi de tes épisodes." />
     <meta property="og:url" content="https://leopold222155.github.io/pellicule-site/" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Pellicule — votre cinéma, à vous" />
-    <meta name="twitter:description" content="Crée ta cinémathèque personnelle : films, séries et animations vus ou à voir, notes et favoris." />
+    <meta name="twitter:title" content="Pellicule | Application pour suivre films et séries" />
+    <meta name="twitter:description" content="Organise ta cinémathèque personnelle : films et séries vus ou à voir, notes, favoris et suivi de tes épisodes." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&amp;display=swap" rel="stylesheet" />
@@ -102,12 +113,12 @@
         </a>
         <div class="sidebar-section-label">MENU</div>
         <nav class="side-nav" aria-label="Navigation principale">
-          <button class="nav-item active" type="button" data-filter="all" aria-label="Accueil" title="Accueil"><span class="nav-icon">⌂</span><span class="nav-label">Accueil</span><span class="nav-indicator"></span></button>
-          <button class="nav-item" type="button" data-view="catalog" aria-label="Catalogue en ligne" title="Catalogue en ligne"><span class="nav-icon">⌕</span><span class="nav-label">Catalogue en ligne</span></button>
-          <button class="nav-item" type="button" data-filter="watched" aria-label="Déjà vus" title="Déjà vus"><span class="nav-icon">▣</span><span class="nav-label">Déjà vus</span><span class="nav-count" id="watchedNavCount">0</span></button>
-          <button class="nav-item" type="button" data-filter="watchlist" aria-label="À voir" title="À voir"><span class="nav-icon">◷</span><span class="nav-label">À voir</span><span class="nav-count" id="watchlistNavCount">0</span></button>
-          <button class="nav-item" type="button" data-view="friends" aria-label="Mes amis" title="Mes amis"><span class="nav-icon">♧</span><span class="nav-label">Mes amis</span></button>
-          <button class="nav-item" type="button" data-filter="favorites" aria-label="Mes favoris" title="Mes favoris"><span class="nav-icon">♡</span><span class="nav-label">Mes favoris</span></button>
+          <button class="nav-item active" type="button" data-filter="all" aria-label="Accueil" title="Accueil"><span class="nav-icon"><svg class="nav-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10.5 8.5-6.7 8.5 6.7M5.5 9.5v10h13v-10M9 19.5v-6h6v6" /></svg></span><span class="nav-label">Accueil</span><span class="nav-indicator"></span></button>
+          <button class="nav-item" type="button" data-view="catalog" aria-label="Catalogue en ligne" title="Catalogue en ligne"><span class="nav-icon"><svg class="nav-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5" /></svg></span><span class="nav-label">Catalogue</span></button>
+          <button class="nav-item" type="button" data-filter="watched" aria-label="Déjà vus" title="Déjà vus"><span class="nav-icon"><svg class="nav-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.2 4.2L19 7" /></svg></span><span class="nav-label">Vus</span><span class="nav-count" id="watchedNavCount">0</span></button>
+          <button class="nav-item" type="button" data-filter="watchlist" aria-label="À voir" title="À voir"><span class="nav-icon"><svg class="nav-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7v5l3.2 2" /></svg></span><span class="nav-label">À voir</span><span class="nav-count" id="watchlistNavCount">0</span></button>
+          <button class="nav-item" type="button" data-view="friends" aria-label="Mes amis" title="Mes amis"><span class="nav-icon"><svg class="nav-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.3" /><circle class="nav-icon-eye" cx="10.8" cy="7.4" r=".25" /><circle class="nav-icon-eye" cx="13.2" cy="7.4" r=".25" /><path d="M5 20c.7-3.4 3-5.2 7-5.2s6.3 1.8 7 5.2M10 9.3c.5.7 1.1 1 2 1s1.5-.3 2-1" /></svg></span><span class="nav-label">Amis</span></button>
+          <button class="nav-item" type="button" data-filter="favorites" aria-label="Mes favoris" title="Mes favoris"><span class="nav-icon"><svg class="nav-icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 3.8-8.8 10-8.8 10s-8.8-6.2-8.8-10a4.6 4.6 0 0 1 8.8-1.9 4.6 4.6 0 0 1 8.8 1.9Z" /></svg></span><span class="nav-label">Favoris</span></button>
         </nav>
         <div class="sidebar-bottom">
           <div class="sidebar-quote"><span class="quote-mark">“</span><p id="sidebarQuoteText">Les images passent, les émotions restent.</p><span id="sidebarQuoteAuthor" class="quote-author">— L’ESPRIT PELLICULE</span></div>
