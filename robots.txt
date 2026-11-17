@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leopold222155.github.io/pellicule-site/sitemap.xml
